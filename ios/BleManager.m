@@ -540,7 +540,10 @@ RCT_EXPORT_METHOD(writeWithoutResponse:(NSString *)deviceUUID serviceUUID:(NSStr
 {
     NSLog(@"writeWithoutResponse");
     
-    BLECommandContext *context = [self getData:deviceUUID serviceUUIDString:serviceUUID characteristicUUIDString:characteristicUUID prop:CBCharacteristicPropertyWriteWithoutResponse callback:callback];
+    BLECommandContext *context = NULL;
+    @synchronized(peripherals) {
+        context = [self getData:deviceUUID serviceUUIDString:serviceUUID characteristicUUIDString:characteristicUUID prop:CBCharacteristicPropertyWriteWithoutResponse callback:callback];
+    }
     // unsigned long c = [message count];
     // uint8_t *bytes = malloc(sizeof(*bytes) * c);
     
